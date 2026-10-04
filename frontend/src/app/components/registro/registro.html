@@ -1,0 +1,64 @@
+<div class="registro-container">
+  <div class="registro-box">
+
+    <h2>GestroContable</h2>
+    <p class="subtitle">Crea tu cuenta</p>
+
+      
+    <div class="error-message" *ngIf="error">
+      {{ error }}
+    </div>
+
+
+    <div class="exito-message" *ngIf="exito">
+      {{ exito }}
+    </div>
+
+
+    <div class="form-group">
+      <label>Nombre</label>
+      <input
+        type="text"
+        [(ngModel)]="registro.nombre"
+        placeholder="Tu nombre completo"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Correo</label>
+      <input
+        type="email"
+        [(ngModel)]="registro.correo"
+        placeholder="tucorreo@gmail.com"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Pregunta de seguridad</label>
+      <input
+        type="text"
+        [(ngModel)]="registro.preguntaSeguridad"
+        placeholder="¿Cuál fue tu primera mascota?"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input
+        type="password"
+        [(ngModel)]="registro.password"
+        placeholder="••••••••"
+      />
+    </div>
+
+    <button class="btn-registro" (click)="registrar()">
+      Registrarse
+    </button>
+
+    <p class="login-link">
+      ¿Ya tienes cuenta?
+      <a routerLink="/login">Inicia sesión aquí</a>
+    </p>
+
+  </div>
+</div>

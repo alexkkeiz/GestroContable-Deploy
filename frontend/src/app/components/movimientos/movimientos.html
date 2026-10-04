@@ -1,0 +1,105 @@
+<div class="movimientos-container">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1>GestroContable</h1>
+    <div class="nav-links">
+      <a routerLink="/panel">← Panel</a>
+      <a routerLink="/ver-movimientos">📊 Ver Movimientos</a>
+      <a routerLink="/pagos-periodicos">🔁 Pagos Periódicos</a>
+    </div>
+  </nav>
+
+  <!-- Contenido -->
+  <div class="content">
+
+    <div class="header">
+      <h2>Movimientos — {{ negocios[0]?.nombre }}</h2>
+      <button class="btn-nuevo" (click)="mostrarFormulario = !mostrarFormulario">
+        + Nuevo Movimiento
+      </button>
+    </div>
+
+    <!-- Mensajes -->
+    <div class="error-message" *ngIf="error">{{ error }}</div>
+    <div class="exito-message" *ngIf="exito">{{ exito }}</div>
+
+    <!-- Formulario -->
+    <div class="formulario" *ngIf="mostrarFormulario">
+      <h3>Registrar Movimiento</h3>
+
+      <div class="form-group">
+        <label>Monto</label>
+        <input type="number" [(ngModel)]="nuevoMovimiento.monto" placeholder="0"/>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha y hora</label>
+        <input type="datetime-local" [(ngModel)]="nuevoMovimiento.fecha"/>
+      </div>
+
+      <div class="form-group">
+        <label>Descripción</label>
+        <input type="text" [(ngModel)]="nuevoMovimiento.descricion" placeholder="Descricion del movimiento"/>
+      </div>
+    <!-- Tipo de Movimiento -->
+<div class="form-group">
+  <label>Tipo de Movimiento</label>
+  <select [(ngModel)]="tipoSeleccionado">
+    <option value="">-- Selecciona --</option>
+    <option *ngFor="let tipo of tiposMovimiento" [value]="tipo.IdTipo">
+      {{ tipo.nombre }} ({{ tipo.naturaleza }})
+    </option>
+    <option [value]="OPCION_NUEVO">+ Crear nuevo tipo</option>
+  </select>
+</div>
+
+<ng-container *ngIf="tipoSeleccionado === OPCION_NUEVO">
+  <div class="form-group">
+    <label>Nombre del nuevo tipo</label>
+    <select [(ngModel)]="nuevoTipoNombre">
+      <option value="">-- Selecciona --</option>
+      <option value="INGRESO">Ingreso</option>
+      <option value="EGRESO">Egreso</option>
+      <option value="GASTO">Gasto</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Naturaleza</label>
+    <select [(ngModel)]="nuevaNaturaleza">
+      <option value="">-- Selecciona --</option>
+      <option value="DEBITO">Débito</option>
+      <option value="CREDITO">Crédito</option>
+    </select>
+  </div>
+</ng-container>
+
+<div class="form-group" *ngIf="tipoSeleccionado">
+  <label>Origen</label>
+  <select [(ngModel)]="origenSeleccionado">
+    <option value="">-- Selecciona --</option>
+    <option *ngFor="let origen of origenes" [value]="origen.id">
+      {{ origen.descripcion }} ({{ origen.tipoOrigen }})
+    </option>
+    <option [value]="OPCION_NUEVO">+ Crear nuevo origen</option>
+  </select>
+</div>
+
+<ng-container *ngIf="origenSeleccionado === OPCION_NUEVO">
+  <div class="form-group">
+    <label>Descripción del nuevo origen</label>
+    <input type="text" [(ngModel)]="nuevoOrigenDescripcion" placeholder="Ej: Proveedor Juan"/>
+  </div>
+  <div class="form-group">
+    <label>Tipo de Origen</label>
+    <select [(ngModel)]="nuevoOrigenTipo">
+      <option value="">-- Selecciona --</option>
+      <option value="PROVEEDOR">Proveedor</option>
+      <option value="TRABAJADOR">Trabajador</option>
+      <option value="SERVICIO_PUBLICO">Servicio Público</option>
+      <option value="FACTURA">Factura</option>
+      <option value="CLIENTE">Cliente</option>
+      <option value="OTRO">Otro</option>
+    </select>
+  </div>
+</ng-container>
